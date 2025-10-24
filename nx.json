@@ -2,11 +2,6 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "release": {
     "projects": ["packages/*"],
-    "version": {
-      "generatorOptions": {
-        "currentVersionResolver": "git-tag"
-      }
-    },
     "changelog": {
       "automaticFromRef": true,
       "workspaceChangelog": {
