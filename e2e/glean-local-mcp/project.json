@@ -1,0 +1,17 @@
+{
+  "name": "glean-local-mcp-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "e2e/glean-local-mcp",
+  "projectType": "application",
+  "implicitDependencies": ["glean-local-mcp"],
+  "targets": {
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --test **/*.e2e.ts",
+        "cwd": "{projectRoot}"
+      }
+    }
+  }
+}
+
