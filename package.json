@@ -8,10 +8,15 @@
   "devDependencies": {
     "@nx/eslint": "^22.0.1",
     "@nx/eslint-plugin": "^22.0.1",
+    "@nx/js": "22.0.1",
+    "@swc-node/register": "~1.9.1",
+    "@swc/core": "~1.5.7",
+    "@swc/helpers": "~0.5.11",
     "@types/node": "24.8.1",
     "eslint": "~8.57.0",
     "jsonc-eslint-parser": "^2.4.1",
     "nx": "22.0.1",
+    "prettier": "^2.6.2",
     "rolldown": "^1.0.0-beta.43",
     "tsdown": "^0.15.9",
     "typescript": "5.9.3",
@@ -27,5 +32,6 @@
   ],
   "scripts": {
     "publish": "npx nx release --skip-publish"
-  }
+  },
+  "dependencies": {}
 }

@@ -34,16 +34,16 @@ export class Config {
     }
 
     // Environment variables take precedence over stored config
-    const rawScopes = process.env.OAUTH_SCOPES || storedConfig.scopes || 'openid,email,profile,offline_access';
+    const rawScopes = process.env['OAUTH_SCOPES'] || storedConfig.scopes || 'openid,email,profile,offline_access';
     // Convert comma-separated to space-separated for OAuth
     const scopes = rawScopes.replace(/,/g, ' ');
     
     this.oauth = {
-      clientId: process.env.GLEAN_CLIENT_ID || storedConfig.clientId || '',
-      clientSecret: process.env.GLEAN_CLIENT_SECRET || storedConfig.clientSecret || '',
-      issuerUrl: process.env.OAUTH_ISSUER_URL || storedConfig.issuerUrl || '',
-      redirectUri: process.env.REDIRECT_URI || storedConfig.redirectUri || 'http://localhost:8080/authorization-code/callback',
-      oauthPort: parseInt(process.env.OAUTH_PORT || String(storedConfig.oauthPort || '8080'), 10),
+      clientId: process.env['GLEAN_CLIENT_ID'] || storedConfig.clientId || '',
+      clientSecret: process.env['GLEAN_CLIENT_SECRET'] || storedConfig.clientSecret || '',
+      issuerUrl: process.env['OAUTH_ISSUER_URL'] || storedConfig.issuerUrl || '',
+      redirectUri: process.env['REDIRECT_URI'] || storedConfig.redirectUri || 'http://localhost:8080/authorization-code/callback',
+      oauthPort: parseInt(process.env['OAUTH_PORT'] || String(storedConfig.oauthPort || '8080'), 10),
       scopes: scopes
     };
 
@@ -51,8 +51,8 @@ export class Config {
     const defaultTokenPath = path.join(gleanDir, 'tokens.json');
     
     this.glean = {
-      apiBaseUrl: process.env.GLEAN_API_BASE_URL || storedConfig.apiBaseUrl || '',
-      tokenStoragePath: process.env.TOKEN_STORAGE_PATH || defaultTokenPath
+      apiBaseUrl: process.env['GLEAN_API_BASE_URL'] || storedConfig.apiBaseUrl || '',
+      tokenStoragePath: process.env['TOKEN_STORAGE_PATH'] || defaultTokenPath
     };
 
     this.validate();

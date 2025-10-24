@@ -13,7 +13,11 @@
     "declarationMap": true,
     "sourceMap": true,
     "types": ["node"],
-    "allowImportingTsExtensions": false
-  }
+    "allowImportingTsExtensions": false,
+    "baseUrl": ".",
+    "paths": {
+      "glean-local-mcp": ["packages/glean-local-mcp/src/index.ts"]
+    }
+  },
+  "references": []
 }
-
