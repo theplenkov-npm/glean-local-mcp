@@ -78,7 +78,7 @@ export class Logger {
   }
 
   // Cleanup old log files (keep last N days)
-  static cleanupOldLogs(logDir?: string, daysToKeep: number = 7): void {
+  static cleanupOldLogs(logDir?: string, daysToKeep = 7): void {
     const baseDir = logDir || path.join(os.homedir(), '.glean', 'logs');
     
     if (!fs.existsSync(baseDir)) {

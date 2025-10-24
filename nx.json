@@ -12,5 +12,16 @@
       "projectChangelogs": true
     }
   },
-  "nxCloudId": "68fb93b7b818ea2d2bb1e8fe"
+  "nxCloudId": "68fb93b7b818ea2d2bb1e8fe",
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    }
+  ],
+  "tui": {
+    "enabled": false
+  }
 }
