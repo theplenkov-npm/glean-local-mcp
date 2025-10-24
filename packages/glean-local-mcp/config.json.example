@@ -1,0 +1,9 @@
+{
+  "clientId": "your_client_id_here",
+  "clientSecret": "your_client_secret_here",
+  "issuerUrl": "https://your-company.okta.com",
+  "apiBaseUrl": "https://your-company.glean.com",
+  "redirectUri": "http://localhost:8080/authorization-code/callback",
+  "oauthPort": 8080,
+  "scopes": "openid,email,profile,offline_access"
+}

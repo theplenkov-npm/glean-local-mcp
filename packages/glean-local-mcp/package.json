@@ -1,0 +1,38 @@
+{
+  "name": "glean-local-mcp",
+  "version": "1.0.0",
+  "description": "Generic Glean MCP Server with OAuth support for any IDE supporting Model Context Protocol",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": "./dist/index.js",
+  "scripts": {
+    "prepublishOnly": "tsdown"
+  },
+  "keywords": [
+    "mcp",
+    "glean",
+    "oauth",
+    "model-context-protocol",
+    "ai"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "docs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "open": "10.2.0",
+    "undici": "7.16.0"
+  },
+  "overrides": {
+    "tsdown": {
+      "rolldown": "$rolldown",
+      "ast-kit": "$ast-kit"
+    }
+  }
+}
