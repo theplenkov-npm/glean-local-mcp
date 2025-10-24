@@ -4,9 +4,7 @@
     "version": {
       "conventionalCommits": true
     },
-    "projects": [
-      "packages/*"
-    ],
+    "projects": ["packages/*"],
     "changelog": {
       "automaticFromRef": true,
       "workspaceChangelog": {
@@ -26,5 +24,11 @@
   ],
   "tui": {
     "enabled": false
+  },
+  "targetDefaults": {
+    "nx-release-publish": { "dependsOn": ["build", "lint"] },
+    "build": {
+      "dependsOn": ["^build"]
+    }
   }
 }
