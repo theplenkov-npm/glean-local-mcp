@@ -1,3 +1,13 @@
+## 1.2.1 (2025-10-24)
+
+### 🩹 Fixes
+
+- update README to reflect correct command for local MCP ([c0b1ea6](https://github.com/theplenkov-npm/glean-local-mcp/commit/c0b1ea6))
+
+### ❤️ Thank You
+
+- Petr Plenkov
+
 ## 1.2.0 (2025-10-24)
 
 ### 🚀 Features
