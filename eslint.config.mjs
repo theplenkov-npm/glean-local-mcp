@@ -27,7 +27,25 @@ export default [
         "error",
         {
           ignoredFiles: [
-            "*.{config,test,spec}.{js,ts,cts,mts,cjs,mjs}",
+            "{projectRoot}/eslint.config.{js,cjs,mjs}",
+          ]
+        },
+      ],
+    },
+  },
+  {
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    rules: {
+      '@nx/enforce-module-boundaries': [
+        'error',
+        {
+          enforceBuildableLibDependency: true,
+          allow: ['^.*\\.(config|eslint\\.config)\\.[cm]?[jt]s$'],
+          depConstraints: [
+            {
+              sourceTag: '*',
+              onlyDependOnLibsWithTags: ['*'],
+            },
           ],
         },
       ],

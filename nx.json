@@ -13,6 +13,10 @@
   "nxCloudId": "68fb93b7b818ea2d2bb1e8fe",
   "plugins": [
     {
+      "plugin": "@nx/js",
+      "options": {}
+    },
+    {
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "lint"
