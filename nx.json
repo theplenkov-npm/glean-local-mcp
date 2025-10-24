@@ -1,7 +1,9 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "release": {
-    "projects": ["packages/*"],
+    "projects": [
+      "packages/*"
+    ],
     "changelog": {
       "automaticFromRef": true,
       "workspaceChangelog": {
@@ -9,5 +11,6 @@
       },
       "projectChangelogs": true
     }
-  }
+  },
+  "nxCloudId": "68fb93b7b818ea2d2bb1e8fe"
 }
