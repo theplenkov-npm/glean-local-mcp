@@ -4,7 +4,16 @@
   "description": "Generic Glean MCP Server with OAuth support for any IDE supporting Model Context Protocol",
   "main": "dist/index.js",
   "type": "module",
-  "bin": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "glean-local-mcp": "./dist/index.js"
+  },
   "keywords": [
     "mcp",
     "glean",
@@ -25,5 +34,9 @@
   },
   "engines": {
     "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "open": "10.2.0",
+    "undici": "7.16.0"
   }
 }

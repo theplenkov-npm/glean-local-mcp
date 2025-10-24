@@ -10,7 +10,7 @@ export default defineConfig({
   outDir: 'dist',
   clean: true,
   dts: false,
-  sourcemap: false,
+  sourcemap: true,
   target: 'es2022',
   platform: 'node',
   external: ['open', '@gleanwork/local-mcp-server', 'undici']

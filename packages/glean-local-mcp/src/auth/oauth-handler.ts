@@ -142,7 +142,7 @@ export class OAuthHandler {
         console.log(`If the browser doesn't open automatically, visit:\n${authUrl}\n`);
         
         // Open browser
-        open(authUrl).catch((err) => {
+        open(authUrl).catch((err: unknown) => {
           console.error('Could not open browser automatically. Please visit the URL above manually.');
         });
       });

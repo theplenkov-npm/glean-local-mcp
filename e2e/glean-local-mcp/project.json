@@ -2,8 +2,7 @@
   "name": "glean-local-mcp-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "e2e/glean-local-mcp",
-  "projectType": "application",
-  "implicitDependencies": ["glean-local-mcp"],
+  "projectType": "application",  
   "targets": {
     "e2e": {
       "executor": "nx:run-commands",

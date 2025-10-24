@@ -59,7 +59,7 @@ function isAuthorizedRequest(origin: string): boolean {
 
 // Create a custom dispatcher that intercepts requests
 class GleanOAuthAgent extends Agent {
-  dispatch(options: any, handler: any) {
+  override dispatch(options: any, handler: any) {
     // Get the origin (URL) to check if it's a Glean request
     const origin = typeof options.origin === 'string' ? options.origin : options.origin?.href || '';
     
@@ -99,9 +99,6 @@ class GleanOAuthAgent extends Agent {
 }
 
 // Set our custom agent as the global dispatcher
-setGlobalDispatcher(new GleanOAuthAgent({
-  connections: 100,
-  pipelining: 10
-}));
+setGlobalDispatcher(new GleanOAuthAgent());
 
 console.error('[Undici Interceptor] Global HTTP dispatcher configured (secure token loading from ~/.glean/tokens.json)');
