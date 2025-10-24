@@ -7,6 +7,12 @@
     "build": {
       "executor": "nx:run-commands",
       "outputs": ["{projectRoot}/dist"],
+      "inputs": [
+        "default",
+        "{projectRoot}/tsdown.config.ts",
+        "{projectRoot}/tsconfig.json"
+      ],
+      "cache": true,
       "options": {
         "command": "tsdown",
         "cwd": "{projectRoot}"
@@ -38,6 +44,12 @@
     },
     "watch": {
       "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "{projectRoot}/tsdown.config.ts",
+        "{projectRoot}/tsconfig.json"
+      ],
+      "cache": false,
       "options": {
         "command": "tsdown --watch",
         "cwd": "{projectRoot}"
@@ -45,6 +57,7 @@
     },
     "clean": {
       "executor": "nx:run-commands",
+      "cache": false,
       "options": {
         "command": "rm -rf dist",
         "cwd": "{projectRoot}"
@@ -52,6 +65,11 @@
     },
     "test": {
       "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "{projectRoot}/tsconfig.json"
+      ],
+      "cache": true,
       "options": {
         "command": "node --test src/**/*.test.ts",
         "cwd": "{projectRoot}"
