@@ -1,5 +1,10 @@
 {
   "name": "root",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theplenkov-npm/glean-local-mcp.git"
+  },
   "devDependencies": {
     "@nx/eslint": "^22.0.1",
     "@nx/eslint-plugin": "^22.0.1",
