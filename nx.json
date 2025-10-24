@@ -2,8 +2,7 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "release": {
     "version": {
-      "conventionalCommits": true,
-      "currentVersionResolver": "git-tag"
+      "conventionalCommits": true      
     },
     "projects": ["packages/*"],
     "changelog": {
