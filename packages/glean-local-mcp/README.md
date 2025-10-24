@@ -1,6 +1,11 @@
 # glean-local-mcp
 
+[![npm version](https://badge.fury.io/js/glean-local-mcp.svg)](https://www.npmjs.com/package/glean-local-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 OAuth wrapper for `@gleanwork/local-mcp-server` - enables Cursor and other MCP clients to use Glean with OAuth 2.0 authentication.
+
+**Repository**: [https://github.com/theplenkov-npm/glean-local-mcp](https://github.com/theplenkov-npm/glean-local-mcp)
 
 ## Installation
 
@@ -137,7 +142,14 @@ Tokens are securely stored in `~/.glean/tokens.json` by default. Override with `
 - Node.js 24.0.0+
 - OAuth credentials for your Glean instance
 
+## Contributing
+
+Contributions are welcome! Please visit the [repository](https://github.com/theplenkov-npm/glean-local-mcp) to:
+- [Report issues](https://github.com/theplenkov-npm/glean-local-mcp/issues)
+- [Submit pull requests](https://github.com/theplenkov-npm/glean-local-mcp/pulls)
+- [Request features](https://github.com/theplenkov-npm/glean-local-mcp/issues)
+
 ## License
 
-MIT
+MIT - See [LICENSE](https://github.com/theplenkov-npm/glean-local-mcp/blob/main/LICENSE) for details.
 

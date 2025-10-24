@@ -7,9 +7,6 @@
     "projects": ["packages/*"],
     "changelog": {
       "automaticFromRef": true,
-      "workspaceChangelog": {
-        "createRelease": "github"
-      },
       "projectChangelogs": true
     }
   },

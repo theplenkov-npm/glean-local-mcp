@@ -1,6 +1,11 @@
 # Glean MCP OAuth Wrapper
 
+[![npm version](https://badge.fury.io/js/glean-local-mcp.svg)](https://www.npmjs.com/package/glean-local-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Monorepo for OAuth-enabled Glean MCP server integration.
+
+**Repository**: [https://github.com/theplenkov-npm/glean-local-mcp](https://github.com/theplenkov-npm/glean-local-mcp)
 
 ## What This Is
 
@@ -60,12 +65,17 @@ npm run clean
 
 ## Contributing
 
-1. Fork the repository
+1. Fork the [repository](https://github.com/theplenkov-npm/glean-local-mcp)
 2. Create a feature branch
 3. Make your changes
 4. Build and test: `npm run build`
-5. Submit a pull request
+5. Submit a [pull request](https://github.com/theplenkov-npm/glean-local-mcp/pulls)
+
+## Issues & Support
+
+- [Report bugs](https://github.com/theplenkov-npm/glean-local-mcp/issues)
+- [Request features](https://github.com/theplenkov-npm/glean-local-mcp/issues)
 
 ## License
 
-MIT
+MIT - See [LICENSE](https://github.com/theplenkov-npm/glean-local-mcp/blob/main/LICENSE) for details.
