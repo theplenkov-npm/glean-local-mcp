@@ -56,7 +56,7 @@ Set via shell, .env file (with `node --env-file`), or IDE configuration.
   "mcpServers": {
     "glean": {
       "command": "npx",
-      "args": ["-y", "glean-mcp-oauth"]
+      "args": ["-y", "glean-local-mcp"]
     }
   }
 }
@@ -69,7 +69,7 @@ Set via shell, .env file (with `node --env-file`), or IDE configuration.
   "mcpServers": {
     "glean": {
       "command": "npx",
-      "args": ["-y", "glean-mcp-oauth"],
+      "args": ["-y", "glean-local-mcp"],
       "env": {
         "GLEAN_CLIENT_ID": "your_client_id",
         "GLEAN_CLIENT_SECRET": "your_client_secret",
