@@ -1,3 +1,13 @@
+## 1.2.0 (2025-10-24)
+
+### 🚀 Features
+
+- enhance nx.json and package.json for versioning and repository details ([1d5e0a1](https://github.com/theplenkov-npm/glean-local-mcp/commit/1d5e0a1))
+
+### ❤️ Thank You
+
+- Petr Plenkov
+
 ## 1.1.0 (2025-10-24)
 
 ### 🚀 Features
