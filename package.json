@@ -1,20 +1,26 @@
 {
   "name": "root",
   "devDependencies": {
+    "@nx/eslint": "^22.0.1",
+    "@nx/eslint-plugin": "^22.0.1",
     "@types/node": "24.8.1",
-    "ast-kit": "^2.1.2",
+    "eslint": "~8.57.0",
+    "jsonc-eslint-parser": "^2.4.1",
     "nx": "22.0.1",
     "rolldown": "^1.0.0-beta.43",
     "tsdown": "^0.15.9",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.46.2-alpha.0"
   },
   "overrides": {
     "tsdown": {
-      "rolldown": "$rolldown",
-      "ast-kit": "$ast-kit"
+      "rolldown": "$rolldown"
     }
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "publish": "npx nx release --skip-publish"
+  }
 }

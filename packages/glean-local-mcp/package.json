@@ -5,9 +5,6 @@
   "main": "dist/index.js",
   "type": "module",
   "bin": "./dist/index.js",
-  "scripts": {
-    "prepublishOnly": "tsdown"
-  },
   "keywords": [
     "mcp",
     "glean",
@@ -20,19 +17,10 @@
     "README.md",
     "docs"
   ],
-  "author": "",
+  "author": "theplenkov",
   "license": "MIT",
   "engines": {
     "node": ">=24.0.0"
   },
-  "dependencies": {
-    "open": "10.2.0",
-    "undici": "7.16.0"
-  },
-  "overrides": {
-    "tsdown": {
-      "rolldown": "$rolldown",
-      "ast-kit": "$ast-kit"
-    }
-  }
+  "dependencies": {}
 }

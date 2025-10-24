@@ -30,17 +30,7 @@ jobs:
         run: npx nx report
         shell: bash
 
-      - name: Build packages
-        run: npm run build --if-present
-        shell: bash
-
       - name: Run linting
-        run: npx nx run-many -t lint --skip-nx-cache
-        shell: bash
-        continue-on-error: true
-
-      - name: Run tests
-        run: npx nx run-many -t test --skip-nx-cache
-        shell: bash
-        continue-on-error: true
+        run: npx nx run-many -t typecheck build lint test 
+        shell: bash        
 
