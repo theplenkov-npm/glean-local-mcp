@@ -13,5 +13,6 @@ export default defineConfig({
   sourcemap: true,
   target: 'es2022',
   platform: 'node',
-  external: ['open', '@gleanwork/local-mcp-server', 'undici']
+  external: ['open', '@gleanwork/local-mcp-server', 'undici'],
+  exports: true
 });
