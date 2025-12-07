@@ -1,3 +1,15 @@
+## 1.3.0 (2025-12-07)
+
+### 🚀 Features
+
+- detect and use the same package manager that invoked the wrapper ([#new](https://github.com/theplenkov-npm/glean-local-mcp/pull/new))
+  - Respects user's choice of `npx`, `bunx`, or `pnpm dlx`
+  - Improves consistency and performance by leveraging the user's preferred package manager
+
+### ❤️ Thank You
+
+- Petr Plenkov
+
 ## 1.2.2 (2025-10-24)
 
 This was a version bump only for glean to align it with other projects, there were no code changes.
