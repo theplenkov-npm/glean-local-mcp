@@ -2,13 +2,12 @@
   "name": "glean-local-mcp",
   "version": "1.3.1",
   "description": "Generic Glean MCP Server with OAuth support for any IDE supporting Model Context Protocol",
-  "main": "dist/index.js",
+  "main": "./dist/index.mjs",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
+    ".": "./dist/index.mjs",
+    "./cli/authenticate": "./dist/cli/authenticate.mjs",
+    "./proxy/fetch-interceptor": "./dist/proxy/fetch-interceptor.mjs",
     "./package.json": "./package.json"
   },
   "bin": {
@@ -38,5 +37,6 @@
   "dependencies": {
     "open": "11.0.0",
     "undici": "7.16.0"
-  }
+  },
+  "module": "./dist/index.mjs"
 }
