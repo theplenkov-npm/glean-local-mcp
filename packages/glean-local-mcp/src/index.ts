@@ -9,6 +9,50 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 /**
+ * Detects which package manager invoked the wrapper
+ * @returns The package manager command ('npx', 'bunx', or 'pnpm dlx')
+ */
+function detectPackageManager(): string {
+  // Check npm_execpath (set by npm/npx, bun, and pnpm)
+  const npmExecPath = process.env['npm_execpath'];
+  if (npmExecPath) {
+    if (npmExecPath.includes('bun')) {
+      return 'bunx';
+    }
+    if (npmExecPath.includes('pnpm')) {
+      return 'pnpm dlx';
+    }
+    // Default to npx for npm/yarn
+    return 'npx';
+  }
+
+  // Check process name as fallback (for cases where npm_execpath is not set)
+  // This is less reliable but helps in edge cases
+  const parentProcessName = process.argv[1];
+  if (parentProcessName?.includes('bun')) {
+    return 'bunx';
+  }
+  if (parentProcessName?.includes('pnpm')) {
+    return 'pnpm dlx';
+  }
+
+  // Default to npx
+  return 'npx';
+}
+
+/**
+ * Parses package manager command into executable and args
+ * @param packageManager The package manager string (e.g., 'npx', 'bunx', 'pnpm dlx')
+ * @returns Object with 'command' (executable) and 'args' (initial arguments)
+ */
+function parsePackageManager(packageManager: string): { command: string; args: string[] } {
+  const parts = packageManager.split(' ');
+  const command = parts[0];
+  const args = parts.slice(1);
+  return { command, args };
+}
+
+/**
  * OAuth wrapper that manages tokens and spawns @gleanwork/local-mcp-server
  * with a valid token, automatically refreshing when needed.
  */
@@ -24,7 +68,7 @@ class GleanOAuthWrapper {
     this.config = Config.getInstance();
     this.tokenManager = new TokenManager(this.config.glean.tokenStoragePath);
     this.oauthHandler = new OAuthHandler(this.config.oauth, this.tokenManager);
-    
+
     this.logger.info(`Glean OAuth Wrapper initialized`);
     this.logger.info(`Log file: ${this.logger.getLogPath()}`);
   }
@@ -34,7 +78,7 @@ class GleanOAuthWrapper {
     if (!this.tokenManager.hasValidTokens()) {
       // Try to refresh first if we have a refresh token
       const refreshToken = this.tokenManager.getRefreshToken();
-      
+
       if (refreshToken) {
         this.logger.info('🔄 Tokens expired, attempting refresh...');
         try {
@@ -78,7 +122,7 @@ class GleanOAuthWrapper {
     // e.g., https://company-prod-be.glean.com -> company-prod (remove -be suffix)
     const instanceMatch = this.config.glean.apiBaseUrl.match(/https?:\/\/([^.]+)/);
     let instance = instanceMatch ? instanceMatch[1] : 'default';
-    
+
     // Remove -be suffix if present (local-mcp-server adds it automatically)
     if (instance.endsWith('-be')) {
       instance = instance.slice(0, -3);
@@ -91,10 +135,16 @@ class GleanOAuthWrapper {
     this.logger.info(`   Fetch Interceptor: ${fetchInterceptorPath}`);
     this.logger.debug(`   Token: ${token.substring(0, 20)}...`);
 
+    // Detect which package manager invoked this wrapper
+    const packageManager = detectPackageManager();
+    const { command: pmCommand, args: pmArgs } = parsePackageManager(packageManager);
+    this.logger.info(`   Package Manager: ${packageManager}`);
+
     // Spawn the actual Glean local MCP server
     // SECURITY: Token is injected via interceptor, NOT via command-line args
     // (command-line args are visible in process lists via 'ps')
-    this.serverProcess = spawn('npx', [
+    this.serverProcess = spawn(pmCommand, [
+      ...pmArgs,
       '-y',
       '@gleanwork/local-mcp-server',
       '--instance', instance,
@@ -159,14 +209,14 @@ class GleanOAuthWrapper {
     this.tokenRefreshInterval = setInterval(async () => {
       if (!this.tokenManager.hasValidTokens()) {
         this.logger.info('♻️  Token expired, refreshing...');
-        
+
         const refreshToken = this.tokenManager.getRefreshToken();
         if (refreshToken) {
           try {
             const newTokenData = await this.oauthHandler.refreshAccessToken(refreshToken);
             this.tokenManager.saveTokens(newTokenData);
             this.logger.info('✅ Token refreshed successfully');
-            
+
             // Restart the server with new token
             this.logger.info('🔄 Restarting server with new token...');
             this.restartServer();
@@ -202,13 +252,13 @@ class GleanOAuthWrapper {
 
   private shutdown(): void {
     console.error('\n👋 Shutting down Glean OAuth Wrapper...');
-    
+
     this.cleanup();
-    
+
     if (this.serverProcess) {
       this.serverProcess.kill('SIGTERM');
     }
-    
+
     process.exit(0);
   }
 }
