@@ -1,3 +1,13 @@
+## 1.3.1 (2025-12-07)
+
+### 🩹 Fixes
+
+- upgrade all packages to latest versions
+
+### ❤️ Thank You
+
+- Petr Plenkov
+
 ## 1.3.0 (2025-12-07)
 
 ### 🚀 Features
