@@ -58,8 +58,12 @@ jobs:
         run: bunx nx report
         shell: bash
 
-      - name: Release (version, changelog, git)
-        run: bunx nx release ${{ inputs.specifier != 'auto' && inputs.specifier || '' }} --skip-publish ${{ inputs.dry-run && '--dry-run' || '' }}
+      - name: Version
+        run: bunx nx release version ${{ inputs.specifier != 'auto' && inputs.specifier || '' }} --yes ${{ inputs.dry-run && '--dry-run' || '' }}
+        shell: bash
+
+      - name: Changelog, commit, tag & push
+        run: bunx nx release changelog --yes --git-commit --git-tag --git-push ${{ inputs.dry-run && '--dry-run' || '' }}
         shell: bash
 
       - name: Publish to npm
