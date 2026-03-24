@@ -11,7 +11,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "glean-local-mcp": "./dist/index.js"
+    "glean-local-mcp": "./dist/index.mjs"
   },
   "keywords": [
     "mcp",
