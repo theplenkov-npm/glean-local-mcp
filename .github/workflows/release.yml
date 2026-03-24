@@ -61,6 +61,8 @@ jobs:
       - name: Release (version, changelog, commit, tag)
         run: bunx nx release ${{ inputs.specifier != 'auto' && inputs.specifier || '' }} --skip-publish ${{ inputs.dry-run && '--dry-run' || '' }}
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Push tags
         if: ${{ !inputs.dry-run }}

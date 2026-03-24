@@ -11,7 +11,10 @@
     "projects": ["packages/*"],
     "changelog": {
       "automaticFromRef": true,
-      "projectChangelogs": true
+      "projectChangelogs": true,
+      "workspaceChangelog": {
+        "createRelease": "github"
+      }
     },
     "git": {
       "push": true
