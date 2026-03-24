@@ -118,10 +118,10 @@ class GleanOAuthWrapper {
     const __dirname = dirname(__filename);
     const fetchInterceptorPath = join(__dirname, 'proxy', 'fetch-interceptor.js');
 
-    const serverUrl = this.config.glean.serverUrl;
+    const apiBaseUrl = this.config.glean.apiBaseUrl;
 
     this.logger.info(`🚀 Starting @gleanwork/local-mcp-server...`);
-    this.logger.info(`   Server URL: ${serverUrl}`);
+    this.logger.info(`   API Base URL: ${apiBaseUrl}`);
     this.logger.info(`   Fetch Interceptor: ${fetchInterceptorPath}`);
     this.logger.debug(`   Token: ${token.substring(0, 20)}...`);
 
@@ -137,13 +137,13 @@ class GleanOAuthWrapper {
       ...pmArgs,
       '-y',
       '@gleanwork/local-mcp-server',
-      '--server-url', serverUrl,
+      '--server-url', apiBaseUrl,
       '--trace'  // Enable trace logging for debugging
     ], {
       stdio: ['pipe', 'pipe', 'pipe'], // Capture all streams for logging
       env: {
         ...process.env,
-        GLEAN_SERVER_URL: serverUrl,
+        GLEAN_SERVER_URL: apiBaseUrl,
         NODE_DEBUG: 'http,https',  // Enable Node.js networking debug
         NODE_OPTIONS: `--import ${fetchInterceptorPath}` // Inject fetch interceptor via --import
         // SECURITY: Token is NOT passed via env vars - interceptor reads from ~/.glean/tokens.json

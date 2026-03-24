@@ -29,7 +29,7 @@ function getAuthorizedDomain(): string | null {
   try {
     const configPath = join(homedir(), '.glean', 'config.json');
     const config = JSON.parse(readFileSync(configPath, 'utf-8'));
-    const url_str = config.serverUrl || config.apiBaseUrl;
+    const url_str = config.apiBaseUrl;
     if (url_str) {
       // Extract hostname from URL (e.g., "https://company-be.glean.com" -> "company-be.glean.com")
       const url = new URL(url_str);

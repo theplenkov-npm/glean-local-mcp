@@ -7,8 +7,7 @@ interface StoredConfig {
   clientId?: string;
   clientSecret?: string;
   issuerUrl?: string;
-  serverUrl?: string;
-  apiBaseUrl?: string; // deprecated, use serverUrl
+  apiBaseUrl?: string;
   redirectUri?: string;
   oauthPort?: number;
   scopes?: string;
@@ -52,7 +51,7 @@ export class Config {
     const defaultTokenPath = path.join(gleanDir, 'tokens.json');
     
     this.glean = {
-      serverUrl: process.env['GLEAN_SERVER_URL'] || process.env['GLEAN_API_BASE_URL'] || storedConfig.serverUrl || storedConfig.apiBaseUrl || '',
+      apiBaseUrl: process.env['GLEAN_SERVER_URL'] || storedConfig.apiBaseUrl || '',
       tokenStoragePath: process.env['TOKEN_STORAGE_PATH'] || defaultTokenPath
     };
 
@@ -64,7 +63,7 @@ export class Config {
     if (!this.oauth.clientId) missing.push('GLEAN_CLIENT_ID');
     if (!this.oauth.clientSecret) missing.push('GLEAN_CLIENT_SECRET');
     if (!this.oauth.issuerUrl) missing.push('OAUTH_ISSUER_URL');
-    if (!this.glean.serverUrl) missing.push('GLEAN_SERVER_URL');
+    if (!this.glean.apiBaseUrl) missing.push('GLEAN_SERVER_URL');
     
     if (missing.length > 0) {
       throw new Error(
