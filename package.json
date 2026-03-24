@@ -10,17 +10,17 @@
     "@nx/eslint-plugin": "22.2.7",
     "@nx/js": "22.2.7",
     "@swc-node/register": "~1.11.1",
-    "@swc/core": "~1.15.5",
-    "@swc/helpers": "~0.5.17",
+    "@swc/core": "~1.15.21",
+    "@swc/helpers": "~0.5.19",
     "@types/node": "24.10.1",
-    "eslint": "~9.39.2",
+    "eslint": "~9.39.4",
     "jsonc-eslint-parser": "^2.4.2",
     "nx": "22.2.7",
-    "prettier": "^3.7.4",
-    "rolldown": "^1.0.0-beta.9-commit.d91dfb5",
+    "prettier": "^3.8.1",
+    "rolldown": "^1.0.0-rc.10",
     "tsdown": "^0.17.4",
     "typescript": "5.9.3",
-    "typescript-eslint": "^8.50.0"
+    "typescript-eslint": "^8.57.1"
   },
   "workspaces": [
     "packages/*"

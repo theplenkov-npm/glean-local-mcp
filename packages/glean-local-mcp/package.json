@@ -35,8 +35,8 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "open": "11.0.0",
-    "undici": "7.16.0"
+    "open": "^11.0.0",
+    "undici": "^7.24.5"
   },
   "module": "./dist/index.mjs"
 }
