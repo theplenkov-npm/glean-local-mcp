@@ -5,8 +5,21 @@ on:
     inputs:
       dry-run:
         description: 'Run in dry-run mode (no actual publishing)'
-        required: false
-        default: 'false'
+        type: boolean
+        default: false
+      specifier:
+        description: 'Version bump level (auto = conventional commits)'
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+          - premajor
+          - preminor
+          - prepatch
+          - prerelease
+        default: auto
 
 jobs:
   release:
@@ -45,13 +58,8 @@ jobs:
         run: bunx nx report
         shell: bash
 
-      - name: Version, changelog & tag
-        run: bunx nx release --skip-publish --yes
-        shell: bash
-
-      - name: Publish packages
-        if: ${{ inputs.dry-run != 'true' }}
-        run: bunx nx release publish
+      - name: Release
+        run: bunx nx release ${{ inputs.specifier != 'auto' && inputs.specifier || '' }} --yes ${{ inputs.dry-run && '--dry-run' || '' }}
         shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
