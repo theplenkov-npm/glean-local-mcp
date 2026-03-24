@@ -8,6 +8,9 @@
     "changelog": {
       "automaticFromRef": true,
       "projectChangelogs": true
+    },
+    "git": {
+      "push": true
     }
   },
   "nxCloudId": "68fb93b7b818ea2d2bb1e8fe",
