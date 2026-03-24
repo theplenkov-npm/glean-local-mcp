@@ -59,5 +59,7 @@ jobs:
         shell: bash
 
       - name: Release
-        run: bunx nx release ${{ inputs.specifier != 'auto' && inputs.specifier || '' }} --yes ${{ inputs.dry-run && '--dry-run' || '' }}
+        run: npx nx release ${{ inputs.specifier != 'auto' && inputs.specifier || '' }} --yes ${{ inputs.dry-run && '--dry-run' || '' }}
         shell: bash
+        env:
+          NPM_CONFIG_PROVENANCE: true
