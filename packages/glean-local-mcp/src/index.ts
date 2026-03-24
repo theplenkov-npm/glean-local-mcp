@@ -218,7 +218,7 @@ class GleanOAuthWrapper {
     // Get path to fetch interceptor (built version)
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = dirname(__filename);
-    const fetchInterceptorPath = join(__dirname, 'proxy', 'fetch-interceptor.js');
+    const fetchInterceptorPath = join(__dirname, 'proxy', 'fetch-interceptor.mjs');
 
     const apiBaseUrl = this.config.glean.apiBaseUrl;
 
