@@ -64,10 +64,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Push tags
-        if: ${{ !inputs.dry-run }}
-        run: git push --follow-tags
-
       - name: Publish to npm
         if: ${{ !inputs.dry-run }}
         run: npm publish --provenance --access public
