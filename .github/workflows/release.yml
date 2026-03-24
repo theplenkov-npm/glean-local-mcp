@@ -61,6 +61,3 @@ jobs:
       - name: Release
         run: bunx nx release ${{ inputs.specifier != 'auto' && inputs.specifier || '' }} --yes ${{ inputs.dry-run && '--dry-run' || '' }}
         shell: bash
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
