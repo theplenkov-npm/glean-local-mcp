@@ -2,7 +2,7 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "release": {
     "version": {
-      "conventionalCommits": true      
+      "conventionalCommits": true
     },
     "projects": ["packages/*"],
     "changelog": {
@@ -12,7 +12,6 @@
   },
   "nxCloudId": "68fb93b7b818ea2d2bb1e8fe",
   "plugins": [
- 
     {
       "plugin": "@nx/eslint/plugin",
       "options": {
@@ -30,9 +29,12 @@
     "enabled": false
   },
   "targetDefaults": {
-    "nx-release-publish": { "dependsOn": ["build", "lint"] },
+    "nx-release-publish": {
+      "dependsOn": ["build", "lint"]
+    },
     "build": {
       "dependsOn": ["^build"]
     }
-  }
+  },
+  "analytics": true
 }
