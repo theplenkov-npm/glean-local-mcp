@@ -63,7 +63,15 @@ export class OAuthHandler {
            Math.random().toString(36).substring(2, 15);
   }
 
-  public async authenticate(): Promise<TokenData> {
+  /**
+   * Cancel any in-progress authentication (close the callback server).
+   */
+  public cancelAuthentication(): void {
+    this.server?.close();
+    this.server = null;
+  }
+
+  public async authenticate(options: { headless?: boolean } = {}): Promise<TokenData> {
     return new Promise((resolve, reject) => {
       let authCode: string | null = null;
 
@@ -138,22 +146,30 @@ export class OAuthHandler {
       
       this.server.listen(this.config.oauthPort, async () => {
         const authUrl = await this.getAuthorizationUrl();
-        console.log('\n🔐 Opening browser for authentication...\n');
-        console.log(`If the browser doesn't open automatically, visit:\n${authUrl}\n`);
-        
-        // Open browser
-        open(authUrl).catch((err: unknown) => {
-          console.error('Could not open browser automatically. Please visit the URL above manually.');
-        });
+
+        if (options.headless) {
+          // In headless mode: don't open browser, surface the URL via stderr
+          // so the MCP client / agent / operator can act on it
+          console.error(`\n[HEADLESS] Authenticate by opening this URL:\n${authUrl}\n`);
+        } else {
+          console.error('\nOpening browser for authentication...\n');
+          console.error(`If the browser doesn't open automatically, visit:\n${authUrl}\n`);
+
+          // Open browser
+          open(authUrl).catch((err: unknown) => {
+            console.error('Could not open browser automatically. Please visit the URL above manually.');
+          });
+        }
       });
 
       // Set timeout for authentication
+      const timeoutMs = options.headless ? 600000 : 300000; // 10 min headless, 5 min interactive
       setTimeout(() => {
         if (authCode === null) {
           this.server?.close();
           reject(new Error('Authentication timeout'));
         }
-      }, 300000); // 5 minutes timeout
+      }, timeoutMs);
     });
   }
 

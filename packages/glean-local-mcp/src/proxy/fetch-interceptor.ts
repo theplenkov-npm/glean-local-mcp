@@ -17,6 +17,17 @@ function getToken(): string | null {
   try {
     const tokenPath = join(homedir(), '.glean', 'tokens.json');
     const tokenData = JSON.parse(readFileSync(tokenPath, 'utf-8'));
+
+    // Check expiry – the parent process handles refresh, but we avoid
+    // sending a known-expired token (the Glean API would return 401 anyway)
+    if (tokenData.issued_at && tokenData.expires_in) {
+      const expiresAt = tokenData.issued_at + tokenData.expires_in * 1000;
+      if (Date.now() >= expiresAt) {
+        console.error('[Undici Interceptor] WARNING: Access token expired – parent process should refresh soon');
+        return null;
+      }
+    }
+
     return tokenData.access_token || null;
   } catch (error) {
     console.error('[Undici Interceptor] Failed to read token:', error);

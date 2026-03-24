@@ -11,6 +11,7 @@ interface StoredConfig {
   redirectUri?: string;
   oauthPort?: number;
   scopes?: string;
+  headless?: boolean;
 }
 
 export class Config {
@@ -49,10 +50,16 @@ export class Config {
 
     // Default token storage in ~/.glean/tokens.json (safe user directory)
     const defaultTokenPath = path.join(gleanDir, 'tokens.json');
+
+    // Headless mode: explicit env/config, or auto-detect (Linux without DISPLAY)
+    const headless = process.env['GLEAN_HEADLESS'] === 'true'
+      || storedConfig.headless === true
+      || (process.platform === 'linux' && !process.env['DISPLAY'] && !process.env['WAYLAND_DISPLAY']);
     
     this.glean = {
       apiBaseUrl: process.env['GLEAN_SERVER_URL'] || storedConfig.apiBaseUrl || '',
-      tokenStoragePath: process.env['TOKEN_STORAGE_PATH'] || defaultTokenPath
+      tokenStoragePath: process.env['TOKEN_STORAGE_PATH'] || defaultTokenPath,
+      headless
     };
 
     this.validate();

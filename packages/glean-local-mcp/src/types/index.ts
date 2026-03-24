@@ -25,6 +25,7 @@ export interface OIDCConfiguration {
 export interface GleanConfig {
   apiBaseUrl: string;
   tokenStoragePath: string;
+  headless: boolean;
 }
 
 /**
