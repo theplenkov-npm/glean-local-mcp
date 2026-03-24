@@ -1,0 +1,4 @@
+{
+    "git.followTagsWhenSync": true,
+    "git.rebaseWhenSync": true
+}
