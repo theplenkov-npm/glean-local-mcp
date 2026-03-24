@@ -7,8 +7,8 @@ OAuth wrapper for `@gleanwork/local-mcp-server`. Monorepo with one package at `p
 ## Build & Verify
 
 ```bash
-npx nx run glean:build   # build the package (~84ms via tsdown)
-npx nx run glean:test    # run tests (Node --test runner)
+bunx nx run glean:build   # build the package (~84ms via tsdown)
+bunx nx run glean:test    # run tests (Node --test runner)
 ```
 
 ## Architecture
@@ -58,8 +58,8 @@ MCP client config (Cursor, VS Code, Claude Desktop, etc.):
 {
   "mcpServers": {
     "glean": {
-      "command": "npx",
-      "args": ["-y", "glean-local-mcp"]
+      "command": "bunx",
+      "args": ["glean-local-mcp"]
     }
   }
 }
@@ -71,8 +71,8 @@ MCP client config (Cursor, VS Code, Claude Desktop, etc.):
 {
   "mcpServers": {
     "glean": {
-      "command": "npx",
-      "args": ["-y", "glean-local-mcp"],
+      "command": "bunx",
+      "args": ["glean-local-mcp"],
       "env": {
         "GLEAN_CLIENT_ID": "your_client_id",
         "GLEAN_CLIENT_SECRET": "your_client_secret",

@@ -13,24 +13,23 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Install Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
 
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
       - name: Install dependencies
-        run: npm install
-        shell: bash
+        run: bun install
 
       - name: Print Environment Info
-        run: npx nx report
-        shell: bash
+        run: bunx nx report
 
       - name: Run linting
-        run: npx nx run-many -t typecheck build lint test 
-        shell: bash        
-
+        run: bunx nx run-many -t typecheck build lint test

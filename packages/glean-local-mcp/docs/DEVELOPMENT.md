@@ -4,13 +4,13 @@
 
 ```bash
 cd packages/glean-local-mcp-server
-npm install
+bun install
 ```
 
 ## Build
 
 ```bash
-npm run build
+bun run build
 ```
 
 Uses `tsdown` for fast bundling (~55ms).
@@ -18,7 +18,7 @@ Uses `tsdown` for fast bundling (~55ms).
 ## Development
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 Builds and runs the wrapper locally.
@@ -26,7 +26,7 @@ Builds and runs the wrapper locally.
 ## Authentication Testing
 
 ```bash
-npm run auth
+bun run auth
 ```
 
 Opens browser for OAuth flow and saves tokens to `.tokens.json`.
@@ -78,7 +78,7 @@ node --env-file=.env dist/wrapper.js
 
 ```bash
 # Direct with env vars
-GLEAN_CLIENT_ID=xxx GLEAN_CLIENT_SECRET=yyy npm run dev
+GLEAN_CLIENT_ID=xxx GLEAN_CLIENT_SECRET=yyy bun run dev
 
 # With .env file (Node 20.6+)
 node --env-file=.env packages/glean-local-mcp-server/dist/wrapper.js
@@ -86,10 +86,5 @@ node --env-file=.env packages/glean-local-mcp-server/dist/wrapper.js
 
 ## Publishing
 
-```bash
-npm run build
-npm publish
-```
-
-The `prepublishOnly` script ensures build runs before publish.
-
+Releases are handled via the GitHub Actions **Release** workflow (`workflow_dispatch`).
+See [RELEASE.md](../../.github/RELEASE.md) for details.

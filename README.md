@@ -34,31 +34,32 @@ See [packages/glean-local-mcp-server](./packages/glean-local-mcp-server) for usa
 
 ```bash
 # Install dependencies
-npm install
+bun install
 
 # Build the package
-npm run build -w glean-local-mcp-server
+bunx nx run glean:build
 
 # Link for local use
-npm link -w glean-local-mcp-server
+bun link -w glean-local-mcp-server
 ```
 
 ## Development
 
 ```bash
 # Build all packages
-npm run build
+bunx nx run-many -t build
 
-# Run tests (when available)
-npm test
+# Run tests
+bunx nx run-many -t test
 
 # Clean build artifacts
-npm run clean
+bunx nx run-many -t clean
 ```
 
 ## Tech Stack
 
 - **Node.js 24+** - Native TypeScript support
+- **Bun** - Package manager and task runner
 - **tsdown** - Fast TypeScript bundler
 - **Nx** - Monorepo management
 - **Native Node APIs** - fetch, http (zero dependencies)
@@ -68,7 +69,7 @@ npm run clean
 1. Fork the [repository](https://github.com/theplenkov-npm/glean-local-mcp)
 2. Create a feature branch
 3. Make your changes
-4. Build and test: `npm run build`
+4. Build and test: `bunx nx run-many -t build test`
 5. Submit a [pull request](https://github.com/theplenkov-npm/glean-local-mcp/pulls)
 
 ## Issues & Support

@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Run without publishing (preview only)'
+        type: boolean
+        default: false
+
+jobs:
+  release:
+    name: Version, Publish & Push
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          filter: tree:0
+
+      - name: Install Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Print Environment Info
+        run: bunx nx report
+
+      - name: Version & changelog
+        run: bunx nx release --skip-publish --yes
+
+      - name: Build packages
+        run: bunx nx run-many -t build
+
+      - name: Publish to npm
+        if: ${{ !inputs.dry-run }}
+        run: bunx nx release publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
+          NPM_CONFIG_ACCESS: public
+
+      - name: Push changes & tags
+        if: ${{ !inputs.dry-run }}
+        run: |
+          git push
+          git push --tags
