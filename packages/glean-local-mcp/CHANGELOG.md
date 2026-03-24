@@ -1,3 +1,13 @@
+## 1.4.2 (2026-03-24)
+
+### 🩹 Fixes
+
+- add GITHUB_TOKEN to release step and configure workspace changelog for GitHub ([277462a](https://github.com/theplenkov-npm/glean-local-mcp/commit/277462a))
+
+### ❤️ Thank You
+
+- Petr Plenkov
+
 ## 1.4.1 (2026-03-24)
 
 This was a version bump only for glean to align it with other projects, there were no code changes.
