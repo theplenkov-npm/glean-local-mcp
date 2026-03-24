@@ -118,20 +118,10 @@ class GleanOAuthWrapper {
     const __dirname = dirname(__filename);
     const fetchInterceptorPath = join(__dirname, 'proxy', 'fetch-interceptor.js');
 
-    // Extract instance name from API base URL
-    // e.g., https://company-prod-be.glean.com -> company-prod (remove -be suffix)
-    const instanceMatch = this.config.glean.apiBaseUrl.match(/https?:\/\/([^.]+)/);
-    let instance = instanceMatch ? instanceMatch[1] : 'default';
-
-    // Remove -be suffix if present (local-mcp-server adds it automatically)
-    if (instance.endsWith('-be')) {
-      instance = instance.slice(0, -3);
-    }
+    const serverUrl = this.config.glean.serverUrl;
 
     this.logger.info(`🚀 Starting @gleanwork/local-mcp-server...`);
-    this.logger.info(`   Instance: ${instance}`);
-    this.logger.info(`   API Base URL: ${this.config.glean.apiBaseUrl}`);
-    this.logger.info(`   Constructed URL will be: https://${instance}-be.glean.com/`);
+    this.logger.info(`   Server URL: ${serverUrl}`);
     this.logger.info(`   Fetch Interceptor: ${fetchInterceptorPath}`);
     this.logger.debug(`   Token: ${token.substring(0, 20)}...`);
 
@@ -147,13 +137,13 @@ class GleanOAuthWrapper {
       ...pmArgs,
       '-y',
       '@gleanwork/local-mcp-server',
-      '--instance', instance,
+      '--server-url', serverUrl,
       '--trace'  // Enable trace logging for debugging
     ], {
       stdio: ['pipe', 'pipe', 'pipe'], // Capture all streams for logging
       env: {
         ...process.env,
-        GLEAN_URL: this.config.glean.apiBaseUrl, // Use exact URL to avoid -be suffix issues
+        GLEAN_SERVER_URL: serverUrl,
         NODE_DEBUG: 'http,https',  // Enable Node.js networking debug
         NODE_OPTIONS: `--import ${fetchInterceptorPath}` // Inject fetch interceptor via --import
         // SECURITY: Token is NOT passed via env vars - interceptor reads from ~/.glean/tokens.json

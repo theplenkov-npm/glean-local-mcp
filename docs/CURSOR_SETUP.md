@@ -10,7 +10,7 @@ Create `~/.glean/config.json`:
   "clientId": "your_client_id",
   "clientSecret": "your_client_secret",
   "issuerUrl": "https://your-company.okta.com",
-  "apiBaseUrl": "https://your-company.glean.com"
+  "serverUrl": "https://your-company-be.glean.com"
 }
 ```
 
@@ -45,7 +45,7 @@ Edit `~/.cursor/mcp.json`:
         "GLEAN_CLIENT_ID": "your_client_id",
         "GLEAN_CLIENT_SECRET": "your_client_secret",
         "OAUTH_ISSUER_URL": "https://your-company.okta.com",
-        "GLEAN_API_BASE_URL": "https://your-company.glean.com"
+        "GLEAN_SERVER_URL": "https://your-company-be.glean.com"
       }
     }
   }

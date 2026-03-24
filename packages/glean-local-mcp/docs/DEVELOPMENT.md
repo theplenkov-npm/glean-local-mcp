@@ -64,7 +64,7 @@ Set environment variables (via nx, node --env-file, or shell):
 export GLEAN_CLIENT_ID=your_id
 export GLEAN_CLIENT_SECRET=your_secret
 export OAUTH_ISSUER_URL=https://your-company.okta.com
-export GLEAN_API_BASE_URL=https://your-company.glean.com
+export GLEAN_SERVER_URL=https://your-company-be.glean.com
 ```
 
 Or use Node's `--env-file`:

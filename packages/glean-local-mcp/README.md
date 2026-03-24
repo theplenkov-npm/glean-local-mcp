@@ -32,7 +32,7 @@ Create `~/.glean/config.json`:
   "clientId": "your_client_id",
   "clientSecret": "your_client_secret",
   "issuerUrl": "https://your-company.okta.com",
-  "apiBaseUrl": "https://your-company.glean.com"
+  "serverUrl": "https://your-company-be.glean.com"
 }
 ```
 
@@ -74,7 +74,7 @@ Set via shell, .env file (with `node --env-file`), or IDE configuration.
         "GLEAN_CLIENT_ID": "your_client_id",
         "GLEAN_CLIENT_SECRET": "your_client_secret",
         "OAUTH_ISSUER_URL": "https://your-company.okta.com",
-        "GLEAN_API_BASE_URL": "https://your-company.glean.com"
+        "GLEAN_SERVER_URL": "https://your-company-be.glean.com"
       }
     }
   }
@@ -96,7 +96,7 @@ Configuration can be set in `~/.glean/config.json` or via environment variables.
 | `clientId` / `GLEAN_CLIENT_ID` | Yes | OAuth Client ID |
 | `clientSecret` / `GLEAN_CLIENT_SECRET` | Yes | OAuth Client Secret |
 | `issuerUrl` / `OAUTH_ISSUER_URL` | Yes | OAuth provider URL (supports OIDC discovery) |
-| `apiBaseUrl` / `GLEAN_API_BASE_URL` | Yes | Glean API URL |
+| `serverUrl` / `GLEAN_SERVER_URL` | Yes | Glean server URL (e.g., `https://company-be.glean.com`) |
 | `redirectUri` / `REDIRECT_URI` | No | OAuth callback (default: `http://localhost:8080/...`) |
 | `oauthPort` / `OAUTH_PORT` | No | Callback port (default: `8080`) |
 | `scopes` / `OAUTH_SCOPES` | No | Comma-separated scopes (default: `openid,email,profile,offline_access`) |
