@@ -1,3 +1,13 @@
+## 1.3.2 (2026-03-24)
+
+### 🩹 Fixes
+
+- update dependency versions in package.json for consistency ([b8f0ed9](https://github.com/ThePlenkov/glean-local-mcp-server/commit/b8f0ed9))
+
+### ❤️ Thank You
+
+- Petr Plenkov
+
 ## 1.3.1 (2025-12-07)
 
 ### 🩹 Fixes
