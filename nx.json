@@ -3,7 +3,10 @@
   "release": {
     "version": {
       "conventionalCommits": true,
-      "fallbackCurrentVersionResolver": "disk"
+      "fallbackCurrentVersionResolver": "disk",
+      "versionActionsOptions": {
+        "skipLockFileUpdate": true
+      }
     },
     "projects": ["packages/*"],
     "changelog": {

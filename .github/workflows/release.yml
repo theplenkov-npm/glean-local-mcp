@@ -58,8 +58,11 @@ jobs:
         run: bunx nx report
         shell: bash
 
-      - name: Release
-        run: npx nx release ${{ inputs.specifier != 'auto' && inputs.specifier || '' }} --yes ${{ inputs.dry-run && '--dry-run' || '' }}
+      - name: Release (version, changelog, git)
+        run: bunx nx release ${{ inputs.specifier != 'auto' && inputs.specifier || '' }} --skip-publish ${{ inputs.dry-run && '--dry-run' || '' }}
         shell: bash
-        env:
-          NPM_CONFIG_PROVENANCE: true
+
+      - name: Publish to npm
+        if: ${{ !inputs.dry-run }}
+        run: npm publish --provenance --access public
+        working-directory: packages/glean-local-mcp
