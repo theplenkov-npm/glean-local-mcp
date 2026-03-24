@@ -20,9 +20,11 @@ export class Config {
   public glean: GleanConfig;
 
   private constructor() {
-    // Load from ~/.glean/config.json if it exists
+    // Load from ~/.glean/mcp-config.json (fall back to legacy config.json)
     const gleanDir = path.join(os.homedir(), '.glean');
-    const configPath = path.join(gleanDir, 'config.json');
+    const configPath = fs.existsSync(path.join(gleanDir, 'mcp-config.json'))
+      ? path.join(gleanDir, 'mcp-config.json')
+      : path.join(gleanDir, 'config.json');
     let storedConfig: StoredConfig = {};
     
     if (fs.existsSync(configPath)) {

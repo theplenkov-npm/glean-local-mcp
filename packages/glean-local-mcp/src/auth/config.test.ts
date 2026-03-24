@@ -7,7 +7,7 @@ describe('Config', () => {
     assert.ok(true, 'Test placeholder');
   });
 
-  test('placeholder - config should load from ~/.glean/config.json', () => {
+  test('placeholder - config should load from ~/.glean/mcp-config.json', () => {
     // TODO: Implement config file loading tests
     assert.ok(true, 'Test placeholder');
   });

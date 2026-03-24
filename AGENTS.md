@@ -17,7 +17,7 @@ bunx nx run glean:test    # run tests (Node --test runner)
 packages/glean-local-mcp/src/
 ├── index.ts                   # Main entry: spawns child process with OAuth token
 ├── auth/
-│   ├── config.ts              # Config loading (config.json + env vars)
+│   ├── config.ts              # Config loading (mcp-config.json + env vars)
 │   ├── oauth-handler.ts       # OAuth 2.0 browser flow (native http)
 │   └── token-manager.ts       # Token storage & refresh
 ├── proxy/
@@ -32,7 +32,7 @@ packages/glean-local-mcp/src/
 
 ## Key Conventions
 
-- **Config field**: `apiBaseUrl` in types, config.json, and user-facing docs.
+- **Config field**: `apiBaseUrl` in types, mcp-config.json, and user-facing docs.
   The upstream child process receives it as `GLEAN_SERVER_URL` env var (that's what `@gleanwork/local-mcp-server` expects).
 - **Env vars**: `GLEAN_SERVER_URL`, `GLEAN_CLIENT_ID`, `GLEAN_CLIENT_SECRET`, `OAUTH_ISSUER_URL`.
 - **Zero HTTP deps**: uses native Node.js `fetch` and `http` module only.
@@ -43,7 +43,7 @@ packages/glean-local-mcp/src/
 
 ### With config file (recommended)
 
-Create `~/.glean/config.json`:
+Create `~/.glean/mcp-config.json`:
 ```json
 {
   "clientId": "your_client_id",
@@ -88,6 +88,6 @@ On first use, a browser window opens for OAuth login. Tokens are saved to `~/.gl
 
 ## Troubleshooting
 
-- **"Missing OAuth configuration"** -- check required env vars / config.json fields
+- **"Missing OAuth configuration"** -- check required env vars / mcp-config.json fields
 - **"Port already in use"** -- change `OAUTH_PORT` and update `REDIRECT_URI` to match
 - **Auth fails** -- delete `~/.glean/tokens.json` and retry

@@ -4,7 +4,7 @@
  * 
  * SECURITY:
  * 1. Reads token from ~/.glean/tokens.json (not from env vars)
- * 2. Only injects token for requests to the EXACT domain configured in ~/.glean/config.json
+ * 2. Only injects token for requests to the EXACT domain configured in ~/.glean/mcp-config.json
  * 3. Prevents token theft via malicious domains like "glean.com.attacker.com"
  */
 import { Agent, setGlobalDispatcher } from 'undici';
@@ -38,7 +38,10 @@ function getToken(): string | null {
 // Get the authorized Glean domain from config
 function getAuthorizedDomain(): string | null {
   try {
-    const configPath = join(homedir(), '.glean', 'config.json');
+    const gleanDir = join(homedir(), '.glean');
+    // Prefer mcp-config.json, fall back to legacy config.json
+    let configPath = join(gleanDir, 'mcp-config.json');
+    try { readFileSync(configPath); } catch { configPath = join(gleanDir, 'config.json'); }
     const config = JSON.parse(readFileSync(configPath, 'utf-8'));
     const url_str = config.apiBaseUrl;
     if (url_str) {

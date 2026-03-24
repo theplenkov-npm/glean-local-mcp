@@ -21,12 +21,12 @@ bunx glean-local-mcp
 ## Configuration
 
 The wrapper loads configuration in this order (later sources override earlier):
-1. `~/.glean/config.json` (persistent, user-specific)
+1. `~/.glean/mcp-config.json` (persistent, user-specific)
 2. Environment variables (temporary, session-specific)
 
 ### Option 1: User Config File (Recommended)
 
-Create `~/.glean/config.json`:
+Create `~/.glean/mcp-config.json`:
 ```json
 {
   "clientId": "your_client_id",
@@ -49,7 +49,7 @@ Set via shell, .env file (with `node --env-file`), or IDE configuration.
 
 ### With Cursor
 
-**If using `~/.glean/config.json`** (recommended):
+**If using `~/.glean/mcp-config.json`** (recommended):
 
 ```json
 {
@@ -89,7 +89,7 @@ Use the same configuration pattern with your MCP client's config file.
 
 ## Configuration Reference
 
-Configuration can be set in `~/.glean/config.json` or via environment variables.
+Configuration can be set in `~/.glean/mcp-config.json` or via environment variables.
 
 | Field / Variable | Required | Description |
 |------------------|----------|-------------|
