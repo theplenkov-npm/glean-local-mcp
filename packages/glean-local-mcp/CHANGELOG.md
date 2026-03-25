@@ -1,3 +1,18 @@
+## 1.5.0 (2026-03-25)
+
+### 🚀 Features
+
+- add headless mode support for OAuth authentication and token management ([9ce1249](https://github.com/theplenkov-npm/glean-local-mcp/commit/9ce1249))
+
+### 🩹 Fixes
+
+- update .gitignore to comment out .vscode/ and add settings.json for git configuration ([75f2d8f](https://github.com/theplenkov-npm/glean-local-mcp/commit/75f2d8f))
+- remove redundant git push step from release workflow ([ade0714](https://github.com/theplenkov-npm/glean-local-mcp/commit/ade0714))
+
+### ❤️ Thank You
+
+- Petr Plenkov
+
 ## 1.4.2 (2026-03-24)
 
 ### 🩹 Fixes
