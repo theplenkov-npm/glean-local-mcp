@@ -103,6 +103,14 @@ async function login() {
     const force = process.argv.includes('--force');
     console.log('🔐 Glean OAuth Login\n');
 
+    // --port=auto  → incremental port fallback
+    // --port=XXXX  → explicit port override
+    const portArg = process.argv.find(a => a.startsWith('--port='));
+    const autoPort = portArg === '--port=auto';
+    if (portArg && !autoPort) {
+      process.env['OAUTH_PORT'] = portArg.split('=')[1];
+    }
+
     const config = Config.getInstance();
     const tokenManager = new TokenManager(config.glean.tokenStoragePath);
     const oauthHandler = new OAuthHandler(config.oauth, tokenManager);
@@ -151,7 +159,7 @@ async function login() {
       }
       console.log('Starting OAuth flow...');
       console.log('A browser window will open for you to authenticate.\n');
-      tokenData = await oauthHandler.authenticate();
+      tokenData = await oauthHandler.authenticate({ autoPort });
       tokenManager.saveTokens(tokenData);
       console.log('\n✅ OAuth authentication successful!\n');
     }

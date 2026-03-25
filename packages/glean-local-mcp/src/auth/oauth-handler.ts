@@ -36,6 +36,25 @@ function listenWithPortFallback(
   });
 }
 
+/**
+ * Listen on exactly `port`. Returns the port on success,
+ * rejects with a clean message on EADDRINUSE.
+ */
+function listenFixed(server: HttpServer, port: number): Promise<number> {
+  return new Promise((resolve, reject) => {
+    server.once('error', (err: NodeJS.ErrnoException) => {
+      if (err.code === 'EADDRINUSE') {
+        reject(new Error(
+          `Port ${port} is already in use. Close whatever is using it, or use --port=auto to find a free port.`
+        ));
+      } else {
+        reject(err);
+      }
+    });
+    server.listen(port, () => resolve(port));
+  });
+}
+
 export class OAuthHandler {
   private config: OAuthConfig;
   private tokenManager: TokenManager;
@@ -104,7 +123,7 @@ export class OAuthHandler {
     this.server = null;
   }
 
-  public async authenticate(options: { headless?: boolean } = {}): Promise<TokenData> {
+  public async authenticate(options: { headless?: boolean; autoPort?: boolean } = {}): Promise<TokenData> {
     return new Promise((resolve, reject) => {
       let authCode: string | null = null;
 
@@ -176,8 +195,12 @@ export class OAuthHandler {
       };
 
       this.server = createServer(requestHandler);
+
+      const startListening = options.autoPort
+        ? listenWithPortFallback(this.server, this.config.oauthPort)
+        : listenFixed(this.server, this.config.oauthPort);
       
-      listenWithPortFallback(this.server, this.config.oauthPort)
+      startListening
         .then(async (boundPort) => {
           // Update redirect URI to match the actual port
           if (boundPort !== this.config.oauthPort) {
