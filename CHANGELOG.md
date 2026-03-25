@@ -1,3 +1,20 @@
+## 1.5.1 (2026-03-25)
+
+### 🚀 Features
+
+- replace authenticate CLI with login for OAuth flow and Glean CLI token seeding ([1f474d2](https://github.com/theplenkov-npm/glean-local-mcp/commit/1f474d2))
+- port fallback + clean errors for EADDRINUSE ([9664319](https://github.com/theplenkov-npm/glean-local-mcp/commit/9664319))
+- --port flag for OAuth callback server ([565fb73](https://github.com/theplenkov-npm/glean-local-mcp/commit/565fb73))
+
+### 🩹 Fixes
+
+- correct fetch-interceptor path extension from .js to .mjs ([a8155d6](https://github.com/theplenkov-npm/glean-local-mcp/commit/a8155d6))
+
+### ❤️ Thank You
+
+- Devin @devin-ai-integration[bot]
+- Petr Plenkov
+
 ## 1.5.0 (2026-03-25)
 
 ### 🚀 Features
