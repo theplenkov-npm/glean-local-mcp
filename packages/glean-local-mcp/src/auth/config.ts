@@ -41,12 +41,14 @@ export class Config {
     // Convert comma-separated to space-separated for OAuth
     const scopes = rawScopes.replace(/,/g, ' ');
     
+    const oauthPort = parseInt(process.env['OAUTH_PORT'] || String(storedConfig.oauthPort || '8080'), 10);
+
     this.oauth = {
       clientId: process.env['GLEAN_CLIENT_ID'] || storedConfig.clientId || '',
       clientSecret: process.env['GLEAN_CLIENT_SECRET'] || storedConfig.clientSecret || '',
       issuerUrl: process.env['OAUTH_ISSUER_URL'] || storedConfig.issuerUrl || '',
-      redirectUri: process.env['REDIRECT_URI'] || storedConfig.redirectUri || 'http://localhost:8080/oauth/callback',
-      oauthPort: parseInt(process.env['OAUTH_PORT'] || String(storedConfig.oauthPort || '8080'), 10),
+      redirectUri: process.env['REDIRECT_URI'] || storedConfig.redirectUri || `http://localhost:${oauthPort}/oauth/callback`,
+      oauthPort,
       scopes: scopes
     };
 

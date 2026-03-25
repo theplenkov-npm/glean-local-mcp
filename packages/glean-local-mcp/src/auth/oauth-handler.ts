@@ -1,7 +1,40 @@
 import { createServer, Server as HttpServer, IncomingMessage, ServerResponse } from 'http';
+import { AddressInfo } from 'net';
 import open from 'open';
 import { OAuthConfig, TokenData, OIDCConfiguration } from '../types/index.js';
 import { TokenManager } from './token-manager.js';
+
+/**
+ * Try to listen on `port`. If EADDRINUSE, increment and retry up to `maxAttempts` times.
+ * Returns the port that was actually bound.
+ */
+function listenWithPortFallback(
+  server: HttpServer,
+  startPort: number,
+  maxAttempts = 10,
+): Promise<number> {
+  return new Promise((resolve, reject) => {
+    let attempt = 0;
+    const tryPort = (port: number) => {
+      attempt++;
+      server.once('error', (err: NodeJS.ErrnoException) => {
+        if (err.code === 'EADDRINUSE' && attempt < maxAttempts) {
+          tryPort(port + 1);
+        } else if (err.code === 'EADDRINUSE') {
+          reject(new Error(
+            `Ports ${startPort}–${port} are all in use. Free one of them or set OAUTH_PORT to a different port.`
+          ));
+        } else {
+          reject(err);
+        }
+      });
+      server.listen(port, () => {
+        resolve((server.address() as AddressInfo).port);
+      });
+    };
+    tryPort(startPort);
+  });
+}
 
 export class OAuthHandler {
   private config: OAuthConfig;
@@ -144,23 +177,33 @@ export class OAuthHandler {
 
       this.server = createServer(requestHandler);
       
-      this.server.listen(this.config.oauthPort, async () => {
-        const authUrl = await this.getAuthorizationUrl();
+      listenWithPortFallback(this.server, this.config.oauthPort)
+        .then(async (boundPort) => {
+          // Update redirect URI to match the actual port
+          if (boundPort !== this.config.oauthPort) {
+            console.error(`⚠️  Port ${this.config.oauthPort} in use, using ${boundPort} instead`);
+            this.config.redirectUri = this.config.redirectUri.replace(
+              `:${this.config.oauthPort}/`,
+              `:${boundPort}/`,
+            );
+            this.config.oauthPort = boundPort;
+          }
 
-        if (options.headless) {
-          // In headless mode: don't open browser, surface the URL via stderr
-          // so the MCP client / agent / operator can act on it
-          console.error(`\n[HEADLESS] Authenticate by opening this URL:\n${authUrl}\n`);
-        } else {
-          console.error('\nOpening browser for authentication...\n');
-          console.error(`If the browser doesn't open automatically, visit:\n${authUrl}\n`);
+          const authUrl = await this.getAuthorizationUrl();
 
-          // Open browser
-          open(authUrl).catch((err: unknown) => {
-            console.error('Could not open browser automatically. Please visit the URL above manually.');
-          });
-        }
-      });
+          if (options.headless) {
+            console.error(`\n[HEADLESS] Authenticate by opening this URL:\n${authUrl}\n`);
+          } else {
+            console.error('\nOpening browser for authentication...\n');
+            console.error(`If the browser doesn't open automatically, visit:\n${authUrl}\n`);
+
+            // Open browser
+            open(authUrl).catch((err: unknown) => {
+              console.error('Could not open browser automatically. Please visit the URL above manually.');
+            });
+          }
+        })
+        .catch(reject);
 
       // Set timeout for authentication
       const timeoutMs = options.headless ? 600000 : 300000; // 10 min headless, 5 min interactive

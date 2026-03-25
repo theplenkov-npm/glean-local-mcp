@@ -390,6 +390,8 @@ async function main() {
   } catch (error) {
     logger.error('Failed to start Glean OAuth Wrapper', error);
     closeLogger();
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`\n❌ ${message}`);
     process.exit(1);
   }
 }
