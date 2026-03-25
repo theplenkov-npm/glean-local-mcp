@@ -45,7 +45,7 @@ export class Config {
       clientId: process.env['GLEAN_CLIENT_ID'] || storedConfig.clientId || '',
       clientSecret: process.env['GLEAN_CLIENT_SECRET'] || storedConfig.clientSecret || '',
       issuerUrl: process.env['OAUTH_ISSUER_URL'] || storedConfig.issuerUrl || '',
-      redirectUri: process.env['REDIRECT_URI'] || storedConfig.redirectUri || 'http://localhost:8080/authorization-code/callback',
+      redirectUri: process.env['REDIRECT_URI'] || storedConfig.redirectUri || 'http://localhost:8080/oauth/callback',
       oauthPort: parseInt(process.env['OAUTH_PORT'] || String(storedConfig.oauthPort || '8080'), 10),
       scopes: scopes
     };

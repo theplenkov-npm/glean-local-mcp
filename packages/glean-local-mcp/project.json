@@ -21,7 +21,7 @@
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node dist/index.js",
+        "command": "node dist/index.mjs",
         "cwd": "{projectRoot}"
       },
       "dependsOn": ["build"]
@@ -29,15 +29,15 @@
     "dev": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node dist/index.js",
+        "command": "node dist/index.mjs",
         "cwd": "{projectRoot}"
       },
       "dependsOn": ["build"]
     },
-    "auth": {
+    "login": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node dist/cli/authenticate.js",
+        "command": "node dist/cli/login.mjs",
         "cwd": "{projectRoot}"
       },
       "dependsOn": ["build"]

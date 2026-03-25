@@ -80,7 +80,7 @@ export class OAuthHandler {
 
         const url = new URL(req.url, `http://localhost:${this.config.oauthPort}`);
         
-        if (url.pathname === '/authorization-code/callback') {
+        if (url.pathname === '/oauth/callback' || url.pathname === '/authorization-code/callback') {
           const code = url.searchParams.get('code');
           const error = url.searchParams.get('error');
 

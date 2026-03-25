@@ -3,47 +3,52 @@
 ## Setup
 
 ```bash
-cd packages/glean-local-mcp-server
 bun install
 ```
 
 ## Build
 
 ```bash
-bun run build
+bunx nx run glean:build
 ```
 
-Uses `tsdown` for fast bundling (~55ms).
+Uses `tsdown` for fast bundling (~84ms).
 
 ## Development
 
 ```bash
-bun run dev
+bunx nx run glean:dev
 ```
 
 Builds and runs the wrapper locally.
 
-## Authentication Testing
+## Login (OAuth + Glean CLI sync)
 
 ```bash
-bun run auth
+bunx nx run glean:login
+# or directly:
+node dist/index.mjs login
 ```
 
-Opens browser for OAuth flow and saves tokens to `.tokens.json`.
+Performs OAuth, saves tokens for glean-local-mcp, and seeds them into the Glean CLI's storage so `glean auth status` works too.
 
 ## Project Structure
 
 ```
 src/
-├── wrapper.ts              # Main OAuth wrapper
+├── index.ts               # Main entry: spawns child process with OAuth token
 ├── auth/
-│   ├── config.ts          # Environment config
-│   ├── oauth-handler.ts   # OAuth flow (native http)
-│   └── token-manager.ts   # Token storage/refresh
+│   ├── config.ts          # Config loading (mcp-config.json + env vars)
+│   ├── oauth-handler.ts   # OAuth 2.0 browser flow (native http)
+│   └── token-manager.ts   # Token storage & refresh
 ├── cli/
-│   └── authenticate.ts    # Standalone auth tool
-└── types/
-    └── index.ts           # TypeScript definitions
+│   └── login.ts           # OAuth login + Glean CLI token seeding
+├── proxy/
+│   └── fetch-interceptor.ts  # Fetch interceptor for token injection
+├── types/
+│   └── index.ts           # TypeScript type definitions
+└── utils/
+    └── logger.ts          # File logger
 ```
 
 ## How It Works
@@ -51,37 +56,31 @@ src/
 1. Wrapper checks for valid tokens
 2. If missing/expired, triggers OAuth flow
 3. Opens browser → user authenticates
-4. Saves tokens locally
-5. Spawns `@gleanwork/local-mcp-server` with token
+4. Saves tokens to `~/.glean/tokens.json`
+5. Spawns `@gleanwork/local-mcp-server` with fetch interceptor
 6. Monitors token expiration every 5 minutes
-7. Auto-refreshes and restarts server with new token
+7. Auto-refreshes tokens (no server restart needed — interceptor reads from disk)
 
 ## Configuration
 
-Set environment variables (via nx, node --env-file, or shell):
+Create `~/.glean/mcp-config.json`:
+
+```json
+{
+  "clientId": "your_client_id",
+  "clientSecret": "your_client_secret",
+  "issuerUrl": "https://your-company.okta.com",
+  "apiBaseUrl": "https://your-company-be.glean.com"
+}
+```
+
+Or set environment variables:
 
 ```bash
 export GLEAN_CLIENT_ID=your_id
 export GLEAN_CLIENT_SECRET=your_secret
 export OAUTH_ISSUER_URL=https://your-company.okta.com
 export GLEAN_SERVER_URL=https://your-company-be.glean.com
-```
-
-Or use Node's `--env-file`:
-```bash
-cp .env.example .env
-# Edit .env
-node --env-file=.env dist/wrapper.js
-```
-
-## Testing Locally
-
-```bash
-# Direct with env vars
-GLEAN_CLIENT_ID=xxx GLEAN_CLIENT_SECRET=yyy bun run dev
-
-# With .env file (Node 20.6+)
-node --env-file=.env packages/glean-local-mcp-server/dist/wrapper.js
 ```
 
 ## Publishing

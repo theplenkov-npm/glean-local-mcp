@@ -23,11 +23,11 @@ packages/glean-local-mcp/src/
 ├── proxy/
 │   └── fetch-interceptor.ts   # Fetch interceptor for token injection
 ├── cli/
-│   └── authenticate.ts        # Standalone auth CLI tool
+│   └── login.ts               # OAuth login + Glean CLI token seeding
 ├── types/
 │   └── index.ts               # TypeScript type definitions
 └── utils/
-    └── package-manager-detection.ts  # Detect npx/bunx/pnpm dlx
+    └── logger.ts              # File logger
 ```
 
 ## Key Conventions

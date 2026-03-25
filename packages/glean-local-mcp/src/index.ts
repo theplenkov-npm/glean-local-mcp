@@ -374,6 +374,14 @@ class GleanOAuthWrapper {
 
 // Main entry point
 async function main() {
+  // Handle `glean-local-mcp login` subcommand
+  const subcommand = process.argv[2];
+  if (subcommand === 'login') {
+    // Dynamically import the login CLI to keep the main bundle small
+    await import('./cli/login.js');
+    return;
+  }
+
   const logger = getLogger();
   try {
     logger.info('=== Glean OAuth Wrapper Starting ===');

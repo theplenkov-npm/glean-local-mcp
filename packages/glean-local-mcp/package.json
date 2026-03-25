@@ -6,12 +6,13 @@
   "type": "module",
   "exports": {
     ".": "./dist/index.mjs",
-    "./cli/authenticate": "./dist/cli/authenticate.mjs",
+    "./cli/login": "./dist/cli/login.mjs",
     "./proxy/fetch-interceptor": "./dist/proxy/fetch-interceptor.mjs",
     "./package.json": "./package.json"
   },
   "bin": {
-    "glean-local-mcp": "./dist/index.mjs"
+    "glean-local-mcp": "./dist/index.mjs",
+    "glean-local-mcp-login": "./dist/cli/login.mjs"
   },
   "keywords": [
     "mcp",

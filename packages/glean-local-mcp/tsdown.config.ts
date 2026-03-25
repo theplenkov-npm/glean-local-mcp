@@ -3,7 +3,7 @@ import { defineConfig } from 'tsdown';
 export default defineConfig({
   entry: [
     'src/index.ts',
-    'src/cli/authenticate.ts',
+    'src/cli/login.ts',
     'src/proxy/fetch-interceptor.ts'
   ],
   format: 'esm',
