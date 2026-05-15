@@ -1,6 +1,6 @@
 // <your-project-root>/eslint.config.mjs
 import nxPlugin from "@nx/eslint-plugin";
-import jsoncParser from "jsonc-eslint-parser";
+import * as jsoncParser from "jsonc-eslint-parser";
 
 export default [
   {
