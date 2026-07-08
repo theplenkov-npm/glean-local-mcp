@@ -1,13 +1,36 @@
 # glean-local-mcp
 
+> [!IMPORTANT]
+> This package is deprecated / no longer maintained.
+>
+> Do not use `@theplenkov-npm/glean-local-mcp` for new MCP setups. It wraps `@gleanwork/local-mcp-server` which predates Glean's managed remote MCP server and is no longer the supported path for connecting MCP-compatible hosts to Glean.
+
+## What to use instead
+
+Use the managed Glean MCP server built into your Glean instance:
+
+- [Using the Glean MCP Server](https://docs.glean.com/user-guide/mcp/usage) — end-user setup for supported MCP hosts.
+- [Set up Glean MCP server](https://docs.glean.com/administration/platform/mcp/enable-mcp-servers) — admin setup and enablement.
+- [About Glean MCP server](https://docs.glean.com/administration/platform/mcp/about) — overview of Glean's managed MCP server.
+
+For local command-line workflows, use [Glean CLI](https://github.com/gleanwork/glean-cli) instead.
+
+## Package status
+
+`@theplenkov-npm/glean-local-mcp` is no longer maintained. No new feature work or bug fixes are planned for this package.
+
+Do not treat this package as an actively maintained MCP surface. Existing users should migrate to the managed Glean MCP server where possible.
+
+---
+
 [![npm version](https://badge.fury.io/js/glean-local-mcp.svg)](https://www.npmjs.com/package/glean-local-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-OAuth wrapper for `@gleanwork/local-mcp-server` - enables Cursor and other MCP clients to use Glean with OAuth 2.0 authentication.
+OAuth wrapper for `@gleanwork/local-mcp-server` - enabled Cursor and other MCP clients to use Glean with OAuth 2.0 authentication.
 
 **Repository**: [https://github.com/theplenkov-npm/glean-local-mcp](https://github.com/theplenkov-npm/glean-local-mcp)
 
-## Installation
+## Installation (Historical)
 
 ```bash
 bun install -g glean-local-mcp
@@ -18,9 +41,9 @@ Or use with bunx (no installation):
 bunx glean-local-mcp
 ```
 
-## Configuration
+## Configuration (Historical)
 
-The wrapper loads configuration in this order (later sources override earlier):
+The wrapper loaded configuration in this order (later sources override earlier):
 1. `~/.glean/mcp-config.json` (persistent, user-specific)
 2. Environment variables (temporary, session-specific)
 
@@ -45,7 +68,7 @@ bunx glean-local-mcp
 
 Set via shell, .env file (with `node --env-file`), or IDE configuration.
 
-## Usage
+## Usage (Historical)
 
 ### With Cursor
 
@@ -87,9 +110,9 @@ Restart Cursor. On first use, your browser opens for OAuth login.
 
 Use the same configuration pattern with your MCP client's config file.
 
-## Configuration Reference
+## Configuration Reference (Historical)
 
-Configuration can be set in `~/.glean/mcp-config.json` or via environment variables.
+Configuration could be set in `~/.glean/mcp-config.json` or via environment variables.
 
 | Field / Variable | Required | Description |
 |------------------|----------|-------------|
@@ -101,30 +124,30 @@ Configuration can be set in `~/.glean/mcp-config.json` or via environment variab
 | `oauthPort` / `OAUTH_PORT` | No | Callback port (default: `8080`) |
 | `scopes` / `OAUTH_SCOPES` | No | Comma-separated scopes (default: `openid,email,profile,offline_access`) |
 
-## How It Works
+## How It Worked (Historical)
 
 ```
 Your IDE → OAuth Wrapper → @gleanwork/local-mcp-server → Glean API
             ↓
-        • Authenticates via OAuth
-        • Stores tokens locally
-        • Refreshes automatically
-        • Passes to local-mcp-server
+        • Authenticated via OAuth
+        • Stored tokens locally
+        • Refreshed automatically
+        • Passed to local-mcp-server
 ```
 
-## Features
+## Features (Historical)
 
 - ✅ OAuth 2.0 authentication via browser
 - ✅ Automatic token refresh (every 5 minutes)
 - ✅ Token persistence between sessions
 - ✅ Zero HTTP dependencies (native fetch/http)
-- ✅ Works with official Glean MCP tools
+- ✅ Worked with official Glean MCP tools
 
-## Token Storage
+## Token Storage (Historical)
 
-Tokens are securely stored in `~/.glean/tokens.json` by default. Override with `TOKEN_STORAGE_PATH` if needed.
+Tokens were securely stored in `~/.glean/tokens.json` by default. Could be overridden with `TOKEN_STORAGE_PATH`.
 
-## Troubleshooting
+## Troubleshooting (Historical)
 
 **"Missing OAuth configuration"**
 - Verify all required environment variables are set
@@ -152,4 +175,3 @@ Contributions are welcome! Please visit the [repository](https://github.com/thep
 ## License
 
 MIT - See [LICENSE](https://github.com/theplenkov-npm/glean-local-mcp/blob/main/LICENSE) for details.
-
